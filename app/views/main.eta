@@ -1,0 +1,39 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Chore application</h1>
+
+<p>This is an application where you can add chores. Anyone using the application can view the available chores, claim them, and complete them. Payment for chores is done using <code>chorecoins</code>, which is a virtual currency with no practical value.</p>
+
+<p>If you haven't used the application before, you can start by <a href="/auth/register">registering</a>. If you have been here before, just <a href="/auth/login">log in</a>!</p>
+
+<p>If you wish to see how such an application could be built, visit the free online <a href="https://wsd.cs.aalto.fi" target="_blank">Web Software Development Course</a> offered by <a href="https://www.aalto.fi/en" target="_blank">Aalto University</a>.</p>
+
+<h2>Current chores</h2>
+
+<% if (it.chores && it.chores.length > 0) { %>
+
+<ul>
+<% it.chores.forEach(chore => { %>
+  <li><%= chore.title %> (<%= chore.chorecoins %> cc)</li>
+<% }); %>
+</ul>
+
+<% } else { %>
+
+<p>None available.</p>
+
+<% } %>
+
+<h2>Add a chore!</h2>
+
+<form method="POST" action="/chores">
+Title:<br/>
+<input type="text" name="title" /><br/>
+Description:<br/>
+<textarea name="description"></textarea><br/>
+Chorecoins:<br/>
+<input type="number" name="chorecoins" /><br/>
+Due date:<br/>
+<input type="date" name="due_date" /><br/>
+<input type="submit" value="Add"/>
+</form>
